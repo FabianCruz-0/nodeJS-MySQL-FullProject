@@ -39,9 +39,11 @@ app.use((req,res,next) => { //Funcion que toma la peticion del usuario, la respu
 //Routes. Aquí se definen las acciones por rutas del navegador.
 app.use(require('./routes/'));
 app.use(require('./routes/autentication')); //se configura el router para autentication.js
-app.use(require('/links','./routes/links')); //se configura el router para links.js con el precedente de Links para los futuros metodos HTTP.
+app.use(require(/*'/links',*/'./routes/links')); //se configura el router para links.js con el precedente de Links para los futuros metodos HTTP.
 
-//Public
+
+//Public. Configuracion de la carpeta pública.
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 //Starting the server. Para inicializar tienes que estar en la carpeta src y ejecutar: node index.js
