@@ -9,12 +9,14 @@ const app = express();
 
 //Settings
 app.set('port', process.env.PORT || 4000);
-app.set('views', path.join(__dirname, 'views')) //__dirname es una cte de node que retorna la dirección del archivo actual.
-//el método join concatena directorios.
+app.set('views', path.join(__dirname, 'views')) //se establece dónde está la carpeta views. __dirname es una cte de node que retorna la dirección del archivo actual.
+//el método join concatena directorios, en este caso, "src/" + "views".
 
-app.engine('.hbs', exhbs({
-    defaultLayout:'main',
-    layoutsDir: path.join(app.get('views'), 'layouts'),
+app.engine('.hbs', exhbs({ 
+    defaultLayout:'main', //establece el layout main.
+    layoutsDir: path.join(app.get('views'), 'layouts'), //busca la carpeta layouts donde están las vistas. views + layouts.
+    partialsDir: path.join(app.get('views'), 'partials'),
+    extname: '.hbs' //Opcion que dice la extensión que tendrán los archivos del handleBars.
 }))
 
 //Middlewares
