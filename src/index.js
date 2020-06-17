@@ -16,8 +16,10 @@ app.engine('.hbs', exhbs({
     defaultLayout:'main', //establece el layout main.
     layoutsDir: path.join(app.get('views'), 'layouts'), //busca la carpeta layouts donde están las vistas. views + layouts.
     partialsDir: path.join(app.get('views'), 'partials'),
-    extname: '.hbs' //Opcion que dice la extensión que tendrán los archivos del handleBars.
+    extname: '.hbs', //Opcion que dice la extensión que tendrán los archivos del handleBars.
+    helpers: require('./lib/handlebars') //estamos definiendo las funciones de ayuda del handlebars.
 }))
+app.set('view engine', '.hbs'); //linea para utilizar el motor, y el nombre del motor.
 
 //Middlewares
 app.use(morgan('dev')); //uso de morgan para ver peticiones HTTP al servidor
