@@ -7,10 +7,12 @@ const path = require('path');
 
 const app = express();
 
+
 //Settings
 app.set('port', process.env.PORT || 4000);
 app.set('views', path.join(__dirname, 'views')) //se establece dónde está la carpeta views. __dirname es una cte de node que retorna la dirección del archivo actual.
 //el método join concatena directorios, en este caso, "src/" + "views".
+
 
 app.engine('.hbs', exhbs({ 
     defaultLayout:'main', //establece el layout main.
@@ -21,15 +23,25 @@ app.engine('.hbs', exhbs({
 }))
 app.set('view engine', '.hbs'); //linea para utilizar el motor, y el nombre del motor.
 
+
 //Middlewares
 app.use(morgan('dev')); //uso de morgan para ver peticiones HTTP al servidor
+app.use(express.urlencoded({extended: false })); //metodo que recibe los datos desde los forumarios. el extended es para datos ssencillos, no imágenes ni datos complejos.
+app.use(express.json()); //esto es para si en un futuro se decide trabajar con archivos JSON.
+
 
 //Global Variables. Sección dedicada para variables disponibles en todas las vistas.
+app.use((req,res,next) => { //Funcion que toma la peticion del usuario, la respuesta del server y la función continua con el resto del código, para que no se quede atascado.
+    next();
+})
+
 
 //Routes. Aquí se definen las acciones por rutas del navegador.
 app.use(require('./routes/'));
 
+
 //Public
+
 
 //Starting the server. Para inicializar tienes que estar en la carpeta src y ejecutar: node index.js
 app.listen(app.get('port'),  () =>{
