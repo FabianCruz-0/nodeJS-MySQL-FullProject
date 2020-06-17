@@ -18,15 +18,16 @@ app.engine('.hbs', exhbs({
 }))
 
 //Middlewares
-app.use(morgan('dev'));
+app.use(morgan('dev')); //uso de morgan para ver peticiones HTTP al servidor
 
-//Global Variables
+//Global Variables. Sección dedicada para variables disponibles en todas las vistas.
 
-//Routes
+//Routes. Aquí se definen las acciones por rutas del navegador.
 app.use(require('./routes/'));
+
 //Public
 
-//Starting the server
+//Starting the server. Para inicializar tienes que estar en la carpeta src y ejecutar: node index.js
 app.listen(app.get('port'),  () =>{
     console.log('Server on port: ', app.get('port'));
-})
+});
