@@ -1,3 +1,5 @@
+//archivo js con los valores claves.
+
 module.exports = {
     database: {
         host: '',
