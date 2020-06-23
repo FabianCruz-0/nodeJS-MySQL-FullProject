@@ -9,7 +9,7 @@ router.get('/add', (req,res) => {
     res.render('links/add');
 });
 
-router.post('/add', (req,res) => {
+router.post('/add', async (req,res) => {
     //console.log(req.body);
     //Destructuring el objeto enviado
     const { title, url, description } = req.body;
@@ -17,10 +17,14 @@ router.post('/add', (req,res) => {
     const newLink = {
         title,
         url,
-        description
+        description,
+        user_id:2
     };
     //console.log(newLink);
-    
+    await pool.query('INSERT INTO links set ?', [newLink]);
+    /*await dice que la peticion puede tardar, y cuando se complete siga con el resto.
+    NO PUEDE HABER await SIN async.
+    */
     res.send('received');
 })
 
