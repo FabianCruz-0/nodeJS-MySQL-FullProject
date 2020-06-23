@@ -10,6 +10,17 @@ router.get('/add', (req,res) => {
 });
 
 router.post('/add', (req,res) => {
+    //console.log(req.body);
+    //Destructuring el objeto enviado
+    const { title, url, description } = req.body;
+    //el objeto newLink se crea para ser vinculado con los usuarios.
+    const newLink = {
+        title,
+        url,
+        description
+    };
+    //console.log(newLink);
+    
     res.send('received');
 })
 
