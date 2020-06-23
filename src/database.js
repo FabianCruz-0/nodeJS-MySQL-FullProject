@@ -1,8 +1,12 @@
 const mysql = require('mysql');
+//destructuring el objeto del modulo util.
+const { promisify } = require('util');
 
-/*CON EL MODULO DE MYSQL SE TIENEN QUE USAR CALL-BACKS, ESTE MODULO NO SOPORTA PROMISES NI POR LO TANTO ASYNC, AWAIT.*/ 
+/*CON EL MODULO DE MYSQL SE TIENEN QUE USAR CALL-BACKS, ESTE MODULO NO SOPORTA PROMISES NI POR LO TANTO ASYNC, AWAIT.
+    NodeJS tiene un modulo que permite el soporte de call backs hacia promesas, llamado -promisify-
+*/ 
 
-
+//destructuring el objeto del archivo de keys.
 const { database } = require('./keys'); //se trae solamente el valor 'database' del archivo 'keys'
 
 /*createPool es un método más cercano al entorno de produccion a diferencia de createConnection
