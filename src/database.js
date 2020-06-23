@@ -1,4 +1,8 @@
 const mysql = require('mysql');
+
+/*CON EL MODULO DE MYSQL SE TIENEN QUE USAR CALL-BACKS, ESTE MODULO NO SOPORTA PROMISES NI POR LO TANTO ASYNC, AWAIT.*/ 
+
+
 const { database } = require('./keys'); //se trae solamente el valor 'database' del archivo 'keys'
 
 /*createPool es un método más cercano al entorno de produccion a diferencia de createConnection
