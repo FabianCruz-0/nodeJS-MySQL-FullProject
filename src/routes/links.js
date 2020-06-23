@@ -25,7 +25,7 @@ router.post('/add', async (req,res) => {
     /*await dice que la peticion puede tardar, y cuando se complete siga con el resto.
     NO PUEDE HABER await SIN async.
     */
-    res.send('received');
+    res.redirect('/links'); //desppues de la insercion en Query te redirecciona al listado de links.
 });
 
 router.get('/', async (req,res) => {
