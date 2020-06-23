@@ -32,5 +32,12 @@ router.get('/', async (req,res) => {
     const links = await pool.query('SELECT * FROM links');
     res.render('links/list', {links}); //se pasa el objeto que recibio los links del query.
 })
+    //SINTAXIS DE EXPRESS PARA AGARRAR UN ID DE LA URI.
+    router.get('/delete/:id', async (req,res) => {
+        // res.send('DELETED');
+        const {id} = req.params;
+        await pool.query('DELETE FROM links WHERE `id` = ?',[id]);
+       res.redirect('/links'); 
+    });
 
 module.exports = router;
