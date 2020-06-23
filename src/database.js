@@ -30,4 +30,6 @@ pool.getConnection((err,connection) => {
     return;
 });
 
+pool.query = promisify(pool.query) //cada que se quiera hacer una consulta a la bd se va a poder utilizar promesas o async await.
+
 module.exports = pool; //solo se exporta esto por que esto es donde se está haciendo la conexion.
