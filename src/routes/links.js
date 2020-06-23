@@ -26,6 +26,11 @@ router.post('/add', async (req,res) => {
     NO PUEDE HABER await SIN async.
     */
     res.send('received');
+});
+
+router.get('/', async (req,res) => {
+    const links = await pool.query('SELECT * FROM links');
+    res.send(links);
 })
 
 module.exports = router;
