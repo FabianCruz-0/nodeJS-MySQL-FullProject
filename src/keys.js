@@ -2,9 +2,9 @@
 
 module.exports = {
     database: {
-        host: 'db4free.net',
-        user: 'favoritelinks',
-        password: 'pass123',
-        database: 'favoritelinks'
+        host: 'remotemysql.com',
+        user: '0FcbvCtz5J',
+        password: 'ilWM2FlybR',
+        database: '0FcbvCtz5J'
     }
 }
