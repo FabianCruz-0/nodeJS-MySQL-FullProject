@@ -39,9 +39,11 @@ router.get('/', async (req,res) => {
         await pool.query('DELETE FROM links WHERE `id` = ?',[id]);
        res.redirect('/links'); 
     });
-
-    router.get('/edit/:id', (req,res) => {
+    //la lógica detrás de la edición es sacar id, después consultar los campos con el id, pintarlos y dejar que lo edite.
+    router.get('/edit/:id', async (req,res) => {
         const {id} = req.params;
+        const links = await pool.query('SELECT * FROM links WHERE `id` = ?',[id]);
+        res.render('/links/edit',{links});
     });
 
 module.exports = router;
