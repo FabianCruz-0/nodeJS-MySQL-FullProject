@@ -45,5 +45,16 @@ router.get('/', async (req,res) => {
         const links = await pool.query('SELECT * FROM links WHERE `id` = ?',[id]);
         res.render('./links/edit',{links: links[0]});
     });
+    router.post('/edit/:id', async (req,res) => {
+        const  { id } = req.params;
+        const {title, description, url} = req.body;
+        const updtLink = {
+            title,
+            description,
+            url
+        }
+        await pool.query('UPDATE links set ? WHERE id = ?', [updtLink, id]);
+        res.redirect('/links');
+    });
 
 module.exports = router;
