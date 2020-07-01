@@ -43,7 +43,7 @@ router.get('/', async (req,res) => {
     router.get('/edit/:id', async (req,res) => {
         const {id} = req.params;
         const links = await pool.query('SELECT * FROM links WHERE `id` = ?',[id]);
-        res.render('/links/edit',{links});
+        res.render('./links/edit',{links: links[0]});
     });
 
 module.exports = router;
