@@ -40,4 +40,8 @@ router.get('/', async (req,res) => {
        res.redirect('/links'); 
     });
 
+    router.get('/edit/:id', (req,res) => {
+        const {id} = req.params;
+    });
+
 module.exports = router;
