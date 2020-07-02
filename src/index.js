@@ -2,9 +2,12 @@ const express = require('express')
 const morgan = require('morgan');
 const exhbs = require('express-handlebars');
 const path = require('path');
+const flash = require('connect-flash');
+const session = require('express-session');
+const MySQLStore = require('express-mysql-session');
+const {database } = require('./keys');
 
 //Initializations
-
 const app = express();
 
 
@@ -25,6 +28,17 @@ app.set('view engine', '.hbs'); //linea para utilizar el motor, y el nombre del 
 
 
 //Middlewares
+
+//Se crea las seciones.
+app.use(session({
+    secret: 'fabian',
+    resave: false,
+    saveUninitialized:false,
+    store: new MySQLStore(database)
+}));
+
+
+app.use(flash()); //Uso de connect-flash para enviar mensajes a traves de las vistas.
 app.use(morgan('dev')); //uso de morgan para ver peticiones HTTP al servidor
 app.use(express.urlencoded({extended: false })); //metodo que recibe los datos desde los forumarios. el extended es para datos ssencillos, no imágenes ni datos complejos.
 app.use(express.json()); //esto es para si en un futuro se decide trabajar con archivos JSON.
@@ -32,6 +46,7 @@ app.use(express.json()); //esto es para si en un futuro se decide trabajar con a
 
 //Global Variables. Sección dedicada para variables disponibles en todas las vistas.
 app.use((req,res,next) => { //Funcion que toma la peticion del usuario, la respuesta del server y la función continua con el resto del código, para que no se quede atascado.
+    app.locals.success = req.flash('success');
     next();
 })
 
