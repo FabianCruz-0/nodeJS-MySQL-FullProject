@@ -42,6 +42,8 @@ router.get('/', async (req,res) => {
         // res.send('DELETED');
         const {id} = req.params;
         await pool.query('DELETE FROM links WHERE `id` = ?',[id]);
+
+        req.flash('success', 'Link removido correctamente');
        res.redirect('/links'); 
     });
     //la lógica detrás de la edición es sacar id, después consultar los campos con el id, pintarlos y dejar que lo edite.
@@ -59,6 +61,7 @@ router.get('/', async (req,res) => {
             url
         }
         await pool.query('UPDATE links set ? WHERE id = ?', [updtLink, id]);
+        req.flash('success', 'Link actualizado correctamente');
         res.redirect('/links');
     });
 
