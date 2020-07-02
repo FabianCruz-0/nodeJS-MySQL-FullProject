@@ -25,6 +25,11 @@ router.post('/add', async (req,res) => {
     /*await dice que la peticion puede tardar, y cuando se complete siga con el resto.
     NO PUEDE HABER await SIN async.
     */
+   //Se guarda un mensaje.
+   req.flash('success', 'Link guardado correctamente'); //COMO SE USA FLASH DESD EUN MIDDLEWARE SE ACCEDE CON EL ATRIBUTO 'req'.
+
+   //syntaxis de flash = flash(nombreMensaje,mensaje);
+
     res.redirect('/links'); //desppues de la insercion en Query te redirecciona al listado de links.
 });
 
