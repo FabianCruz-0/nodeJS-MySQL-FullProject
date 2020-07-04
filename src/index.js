@@ -5,11 +5,12 @@ const path = require('path');
 const flash = require('connect-flash');
 const session = require('express-session');
 const MySQLStore = require('express-mysql-session');
+const passport = require('passport'); //se importa para poder ejecutar su codigo principal.
 const {database } = require('./keys');
 
 //Initializations
 const app = express();
-
+require('./lib/passport');
 
 //Settings
 app.set('port', process.env.PORT || 4000);
@@ -42,9 +43,11 @@ app.use(flash()); //Uso de connect-flash para enviar mensajes a traves de las vi
 app.use(morgan('dev')); //uso de morgan para ver peticiones HTTP al servidor
 app.use(express.urlencoded({extended: false })); //metodo que recibe los datos desde los forumarios. el extended es para datos ssencillos, no imágenes ni datos complejos.
 app.use(express.json()); //esto es para si en un futuro se decide trabajar con archivos JSON.
+app.use(passport.initialize());
+app.use(passport.session());
 
-
-//Global Variables. Sección dedicada para variables disponibles en todas las vistas.
+//Global Variables. 
+//Sección dedicada para variables disponibles en todas las vistas.
 app.use((req,res,next) => { //Funcion que toma la peticion del usuario, la respuesta del server y la función continua con el resto del código, para que no se quede atascado.
     app.locals.success = req.flash('success');
     next();
