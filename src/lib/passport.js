@@ -3,7 +3,35 @@ const LocalStrategy = require('passport-local').Strategy;
 //passport permite autenticaciones con redes sociales.
 
 const pool = require('../database');
-const helpers = require('../lib/helpers')
+const helpers = require('../lib/helpers');
+const { route } = require('../routes/autentication');
+
+passport.use('local.signin', new LocalStrategy({
+    usernameField:'username',
+    passwordField: 'password',
+    passReqToCallback:true
+}, async (req,username,password,done) => {
+    /*console.log(req.body);
+    console.log(username);
+    console.log(password);*/
+    
+    const rows = await pool.query('SELECT * FROM user WHERE username = ?', [username]);
+    if(rows.length>0) //si encontró un usuario
+    {
+        const user = rows[0];
+        const validPass = await helpers.matchPass(password,user.password);
+        if(validPass){ //si las contraseñas coinciden
+            done(null,user,req.flash('succes','BIENVENIDO '  + user.username+'!'));
+        } else { //las contraseñas no coinciden
+            done(null, false, req.flash('message','Contraseña Incorrecta.'))
+        }
+    } else { //el usuario no se encontró en la db
+        return done(null, false, req.flash('message','usuario no existe.'))
+    }
+}));
+
+
+
 passport.use('local.signup', new LocalStrategy({
 //Aqui colocamos lo que recibamos del signup.
     usernameField: 'username',

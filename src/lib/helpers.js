@@ -13,7 +13,7 @@ return passCrypted;
 
 helpers.matchPass = async (password,savedPassword) => {
 try{
-    await bcrypt.compare(password,savedPassword);
+    return await bcrypt.compare(password,savedPassword);
 }catch(e){
     console.log(e); //también se puede usar req.flash.
 }
