@@ -3,7 +3,7 @@ const LocalStrategy = require('passport-local').Strategy;
 //passport permite autenticaciones con redes sociales.
 
 const pool = require('../database');
-
+const helpers = require('../lib/helpers')
 passport.use('local.signup', new LocalStrategy({
 //Aqui colocamos lo que recibamos del signup.
     usernameField: 'username',
@@ -23,7 +23,11 @@ passport.use('local.signup', new LocalStrategy({
         password,
         fullname
     };
-    await pool.query('INSERT INTO users SET ?', [newUser]);
+    //uso del encriptamiento de contraseña.
+    newUser.password = await helpers.encryptPass(password);
+
+    const result = await pool.query('INSERT INTO user SET ?', [newUser]);
+    console.log(result);
     //console.log(req.body);
 
 }
