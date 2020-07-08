@@ -13,3 +13,20 @@
         </div>
     </div>
     {{/if}}
+
+
+    {{!--CODIGO QUE MUESTRA UN MENSAJE SI SE GUARDO UN LINK NUEVO--}}
+    {{#if message }}
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-md-4 mx-auto">
+                <div class="alert alert-danger alert-dismissable fade show" role="alert">
+                    {{message}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="false">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/if}}
