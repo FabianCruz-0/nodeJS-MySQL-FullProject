@@ -50,6 +50,8 @@ app.use(passport.session());
 //Sección dedicada para variables disponibles en todas las vistas.
 app.use((req,res,next) => { //Funcion que toma la peticion del usuario, la respuesta del server y la función continua con el resto del código, para que no se quede atascado.
     app.locals.success = req.flash('success');
+    app.locals.message = req.flash('message');
+
     next();
 })
 
