@@ -15,8 +15,14 @@ passport.use('local.signup', new LocalStrategy({
 //esto es un callback, una función que se ejecuta despues de LocalStrategy.
 //recibe algunos parámetros que asi mismo recibe el callback "done".
  async ( req, username, password, done) => {
-
-    console.log(req.body);
+     const {fullname} = req.body;
+    const newUser = {
+        username,
+        password,
+        fullname
+    };
+    
+    //console.log(req.body);
 
 }
 
