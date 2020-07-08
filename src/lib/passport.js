@@ -27,16 +27,29 @@ passport.use('local.signup', new LocalStrategy({
     newUser.password = await helpers.encryptPass(password);
 
     const result = await pool.query('INSERT INTO user SET ?', [newUser]);
-    console.log(result);
-    //console.log(req.body);
+    
+    //console.log(result);
+    newUser.id = result.insertId;
 
+    //EJECUTAR EL Método done(Error(ninguno), user(para almacenarlo en sesion));
+    //esto ejecutará la parte del codigo de authentication.js donde se valida si 
+    //el signup fué correcto o no.
+
+    return done(null,newUser);
 }
 
 ));
 
 //******ES NECESARIO SERIALIZAR Y DESERIALIZAR EL USARIO.
-
-/*passport.serializeUser((user,done) => {
-
+// Es para guardar el usuario dentro de la sesión del cliente.
+passport.serializeUser((user,done) => {
+done(null,user.id);
 });
-*/
+
+//CUANDO SERIALIZO ESTOY GUARDANDO EL ID DEL USUARIO
+//CUANDO DESERIALIZO ESTOY TOMANDO EL ID ALMACENAODO PARA TOMAR LOS DATOS.
+
+passport.deserializeUser(async (id,done) => {
+const rows = await pool.query('SELECT * FROM user WHERE id = ?', [id]);
+done(null, rows[0]);
+});
