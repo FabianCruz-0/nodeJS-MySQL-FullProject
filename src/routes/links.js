@@ -19,7 +19,7 @@ router.post('/add', isLoggedIn, async (req,res) => {
         title,
         url,
         description,
-        user_id:2
+        user_id: req.app.locals.user.id
     };
     //console.log(newLink);
     await pool.query('INSERT INTO links set ?', [newLink]);
@@ -35,7 +35,7 @@ router.post('/add', isLoggedIn, async (req,res) => {
 });
 
 router.get('/', isLoggedIn, async (req,res) => {
-    const links = await pool.query('SELECT * FROM links');
+    const links = await pool.query('SELECT * FROM links WHERE `user_id` = ?', [req.app.locals.user.id]);
     res.render('links/list', {links}); //se pasa el objeto que recibio los links del query.
 })
     //SINTAXIS DE EXPRESS PARA AGARRAR UN ID DE LA URI.
