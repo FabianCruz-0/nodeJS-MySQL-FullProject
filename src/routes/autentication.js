@@ -42,7 +42,7 @@ passport.authenticate('local.signin', {
 
 
 router.get('/profile', (req,res) => {
-    res.send('profile');
+    res.render('profile');
 })
 
 module.exports = router;
