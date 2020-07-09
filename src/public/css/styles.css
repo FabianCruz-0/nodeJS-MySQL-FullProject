@@ -1,0 +1,18 @@
+body {
+    background: #f5f6f5;
+    font-family: 'Poppins';
+    overflow: hidden;
+}
+.index{
+    width: 100vw;
+    height: 100vh;
+    
+}
+.masthead{
+    background: url('https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80');
+    background-size: cover;
+    color: white;
+    min-width: 30rem;
+    width: 100%;
+    height: 100%;
+}
