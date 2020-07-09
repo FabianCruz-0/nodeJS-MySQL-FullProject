@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const passport = require('passport');
-
+const { isLoggedIn } = require('../lib/auth');
 //manejador de petición.
 router.get('/signup', (req,res) => {
 res.render('auth/signup');
@@ -41,8 +41,13 @@ passport.authenticate('local.signin', {
 });
 
 
-router.get('/profile', (req,res) => {
+router.get('/profile', isLoggedIn, (req,res) => {
     res.render('profile');
-})
+});
+
+router.get('/logout', (req,res) => {
+req.logOut();
+res.redirect('/signin');
+});
 
 module.exports = router;
