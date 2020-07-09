@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <!-- 'ml-auto' COLOCA EL CONTENIDO A LA DERECHA -->
-        {{$if user}}
+        {{#if user}}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -19,6 +19,14 @@
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="/links/add">Nuevo Enlace</a>
           </div>
+        </li>
+        <li class="nav-item">
+          <a href="/profile" class="nav-link">
+            profile
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/logout" class="nav-link">Cerrar sesión</a>
         </li>
         {{/if}}
       </ul>
