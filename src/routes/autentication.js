@@ -28,11 +28,11 @@ router.post('/signup',isNotLoggedIn,  passport.authenticate('local.signup', {
     failureFlash: true
 }));
 
-router.get('/signin', (req,res) => {
+router.get('/signin',isNotLoggedIn, (req,res) => {
 res.render('auth/signin');
 });
 
-router.post('/signin',  (req,res,next) => {
+router.post('/signin',isNotLoggedIn,  (req,res,next) => {
 passport.authenticate('local.signin', {
     successRedirect: '/profile',
     failureRedirect: '/signin',

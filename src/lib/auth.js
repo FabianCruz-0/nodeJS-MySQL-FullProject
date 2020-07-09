@@ -7,7 +7,7 @@ if ( req.isAuthenticated()){ //si existe sesión del usuario
 }
 },
 isNotLoggedIn(req,res,next){
-    if(!req.isAuthenticated)
+    if(!req.isAuthenticated())
     {
         return next();
     }else {
