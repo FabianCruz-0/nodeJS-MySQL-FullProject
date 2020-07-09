@@ -3,13 +3,14 @@ const express = require('express');
 const router = express.Router();
 
 const pool = require('../database'); //importacion de la bd.
+const {isLoggedIn} = require('../lib/auth');
 
-router.get('/add', (req,res) => {
+router.get('/add',isLoggedIn, (req,res) => {
     //res.send('form'); escribe 'Form' en el html.
     res.render('links/add');
 });
 
-router.post('/add', async (req,res) => {
+router.post('/add', isLoggedIn, async (req,res) => {
     //console.log(req.body);
     //Destructuring el objeto enviado
     const { title, url, description } = req.body;
@@ -33,12 +34,12 @@ router.post('/add', async (req,res) => {
     res.redirect('/links'); //desppues de la insercion en Query te redirecciona al listado de links.
 });
 
-router.get('/', async (req,res) => {
+router.get('/', isLoggedIn, async (req,res) => {
     const links = await pool.query('SELECT * FROM links');
     res.render('links/list', {links}); //se pasa el objeto que recibio los links del query.
 })
     //SINTAXIS DE EXPRESS PARA AGARRAR UN ID DE LA URI.
-    router.get('/delete/:id', async (req,res) => {
+    router.get('/delete/:id',isLoggedIn, async (req,res) => {
         // res.send('DELETED');
         const {id} = req.params;
         await pool.query('DELETE FROM links WHERE `id` = ?',[id]);
@@ -47,12 +48,12 @@ router.get('/', async (req,res) => {
        res.redirect('/links'); 
     });
     //la lógica detrás de la edición es sacar id, después consultar los campos con el id, pintarlos y dejar que lo edite.
-    router.get('/edit/:id', async (req,res) => {
+    router.get('/edit/:id', isLoggedIn, async (req,res) => {
         const {id} = req.params;
         const links = await pool.query('SELECT * FROM links WHERE `id` = ?',[id]);
         res.render('./links/edit',{links: links[0]});
     });
-    router.post('/edit/:id', async (req,res) => {
+    router.post('/edit/:id', isLoggedIn, async (req,res) => {
         const  { id } = req.params;
         const {title, description, url} = req.body;
         const updtLink = {
